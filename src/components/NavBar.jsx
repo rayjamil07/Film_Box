@@ -1,6 +1,6 @@
 import React from "react";
 
-const Navbar =() =>{
+const NavBar =() =>{
     return (
         <nav className="navbar">
         <h1 className="logo">Film Box</h1>
