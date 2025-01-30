@@ -8,7 +8,7 @@ const MovieCard = ({ movie, onFavorite, onWatched, favorites, watched }) => {
 
   return (
     <div>
-      {/* Movie Poster Image */}
+      {/* Movie Poster */}
       <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={title} />
 
       {/* Movie Details */}
