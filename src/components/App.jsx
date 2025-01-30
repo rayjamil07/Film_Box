@@ -50,20 +50,27 @@ function App() {
     }
   
     // Function for searching movies
-    function handleSearch(search) {
+    function handleSearch({search, event}) {
+      event.preventDefault();
+
       const searchResults = movies.filter(movie => movie.title.toLowerCase().includes(search.toLowerCase()));
+
       setSearchResults(searchResults);
     }
   
     // Function for clearing search results
-    function clearSearch() {
+    function clearSearch(event) {
+      event.preventDefault();
       setSearchResults([]);
     }
+
+ 
+    
   
     return (
       <div>
         <Navbar />
-        <SearchBar onSearch={handleSearch} onClearSearch={clearSearch} />
+        <SearchBar handleSearch={handleSearch} clearSearch={clearSearch} />
         <MovieContainer 
           movies={searchResults.length > 0 ? searchResults : movies} 
           onFavorite={handleFavorite} 
