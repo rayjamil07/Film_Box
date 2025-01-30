@@ -12,7 +12,7 @@ const Navbar =() =>{
                 <a href="#favourites">Favourites</a>
             </li>
             <li>
-                <a href="#recently-watched">Recently Watched</a>
+                <a href="#recently-watched">Recently watched</a>
             </li>
         </ul>
         </nav>
