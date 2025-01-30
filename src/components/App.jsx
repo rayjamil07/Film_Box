@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Navbar from './Navbar';
+import NavBar from './NavBar';
 import SearchBar from './SearchBar';
 import MovieContainer from './MovieContainer';
 
@@ -64,12 +64,9 @@ function App() {
       setSearchResults([]);
     }
 
- 
-    
-  
     return (
-      <div>
-        <Navbar />
+      <div className="app">
+        <NavBar />
         <SearchBar handleSearch={handleSearch} clearSearch={clearSearch} />
         <MovieContainer 
           movies={searchResults.length > 0 ? searchResults : movies} 
