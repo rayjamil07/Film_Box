@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './NavBar';
 import SearchBar from './SearchBar';
 import MovieContainer from './MovieContainer';
@@ -6,8 +7,12 @@ import MovieContainer from './MovieContainer';
 function App() {
     // State mananger for movies, favorites, watched movies and search results
     const [movies, setMovies] = useState([]);
-    const [favorites, setFavorites] = useState([]);
-    const [watched, setWatched] = useState([]);
+    const [favorites, setFavorites] = useState(() => {
+      return JSON.parse(localStorage.getItem("favorites")) || [];
+    });
+    const [watched, setWatched] = useState(() => {
+      return JSON.parse(localStorage.getItem("watched")) || [];
+    });
     const [searchResults, setSearchResults] = useState([]);
   
     const API_URL = "https://api.themoviedb.org/3/movie/popular";
@@ -27,6 +32,15 @@ function App() {
         setMovies(data.results);
       })
     }, []);
+
+    // Save favorites and watched movies to local storage
+    useEffect(() => {
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+    }, [favorites]);
+
+    useEffect(() => {
+      localStorage.setItem("watched", JSON.stringify(watched));
+    }, [watched]);
   
     // Function to add or remove from a list of favorite movies
     function handleFavorite(movie) {
@@ -50,32 +64,22 @@ function App() {
     }
   
     // Function for searching movies
-    function handleSearch({search, event}) {
-      event.preventDefault();
+    function handleSearch(searchTerm) {
+      const filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
-      const searchResults = movies.filter(movie => movie.title.toLowerCase().includes(search.toLowerCase()));
-
-      setSearchResults(searchResults);
-    }
-  
-    // Function for clearing search results
-    function clearSearch(event) {
-      event.preventDefault();
-      setSearchResults([]);
+      setSearchResults(filteredMovies);
     }
 
     return (
-      <div className="app">
+      <Router>
         <NavBar />
-        <SearchBar handleSearch={handleSearch} clearSearch={clearSearch} />
-        <MovieContainer 
-          movies={searchResults.length > 0 ? searchResults : movies} 
-          onFavorite={handleFavorite} 
-          onWatched={handleWatched} 
-          favorites={favorites} 
-          watched={watched} 
-        />
-      </div>
+        <SearchBar handleSearch={handleSearch} />
+        <Routes>
+          <Route path="/" element={<MovieContainer movies={searchResults.length > 0 ? searchResults : movies} onFavorite={handleFavorite} onWatched={handleWatched} favorites={favorites} watched={watched}/>}/>
+          <Route path="/favorites" element={<MovieContainer movies={favorites} onFavorite={handleFavorite} onWatched={handleWatched} favorites={favorites} watched={watched}/>}/>
+          <Route path="/recently-watched" element={<MovieContainer movies={watched} onFavorite={handleFavorite} onWatched={handleWatched} favorites={favorites} watched={watched}/>}/>
+        </Routes>
+      </Router>
     )
   }
   
