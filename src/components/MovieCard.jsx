@@ -37,4 +37,3 @@ const MovieCard = ({ movie, onFavorite, onWatched, favorites, watched }) => {
 };
 
 export default MovieCard;
-
