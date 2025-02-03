@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NavBar =() =>{
     return (
@@ -6,13 +7,13 @@ const NavBar =() =>{
         <h1 className="logo">Film Box</h1>
         <ul className="nav-links" >
             <li>
-                <a href="#home">Home</a>
+                <Link to="/">Home</Link>
             </li>
             <li>
-                <a href="#favourites">Favourites</a>
+                <Link to="/favorites">Favorites</Link>
             </li>
             <li>
-                <a href="#recently-watched">Recently watched</a>
+                <Link to="/recently-watched">Recently Watched</Link>
             </li>
         </ul>
         </nav>

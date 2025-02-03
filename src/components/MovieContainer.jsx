@@ -4,7 +4,7 @@ import MovieCard from './MovieCard';
 
 function MovieContainer ({movies, onFavorite, onWatched, favorites, watched}){
   return(
-    <div>
+    <div className='movie-container'>
       {movies.map((movie) => (
         <MovieCard
         key={movie.id}
