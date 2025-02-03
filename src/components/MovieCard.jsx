@@ -7,7 +7,7 @@ const MovieCard = ({ movie, onFavorite, onWatched, favorites, watched }) => {
   const isWatched = watched.some((wat) => wat.id === id);
 
   return (
-    <div>
+    <div className="movie-card">
       {/* Movie Poster */}
       <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={title} />
 
